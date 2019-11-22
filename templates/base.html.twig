@@ -2,18 +2,17 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="build/css/app.css">
-        <script src="build/js/app.js"></script>
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
+            <link rel="stylesheet" href="build/css/app.scss">
         {% endblock %}
-
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}{% include 'home.html.twig' %}{% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+            <script src="build/js/app.js"></script>
         {% endblock %}
     </body>
 </html>
