@@ -1,0 +1,12 @@
+// assets/app.scss
+
+// customize some Bootstrap variables
+
+$theme-colors: (
+        "primary": #127dc9,
+        "danger": #cdc6ae
+);
+// the ~ allows you to reference things in node_modules
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+
