@@ -1,14 +1,16 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{ slug }}{% endblock %}
+
+{% block title %}<h1>Nom de la série</h1>{% endblock %}
 
 {% block body %}
 
     <div class="media">
-        <img class="align-self-start mr-3" src="{{program.poster}}" alt="{{ program.title }} poster">
         <div class="media-body">
+            {% for program in programs %}
             <h1 class="mt-0">{{ program.title }}</h1>
             <p>{{ program.summary }}</p>
-            <p>Categorie : {{ program.category.name }}</p>
+            <p>Catégorie : {{ program.category.name }}</p>
+            {% endfor %}
         </div>
     </div>
 
@@ -17,4 +19,3 @@
     </a>
 
 {% endblock %}
-
