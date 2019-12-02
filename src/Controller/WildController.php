@@ -67,7 +67,7 @@ class WildController extends AbstractController
 
     /**
      * @param string $categoryName is the slugger
-    * @Route("wild/category/{categoryName}", name="category")
+    * @Route("wild/category/{categoryName}", name="show_category")
     * @return Response
     */
 
