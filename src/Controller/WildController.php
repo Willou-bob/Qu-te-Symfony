@@ -98,13 +98,6 @@ class WildController extends AbstractController
             'category'  => $category
         ]);
     }
-
-    /**
-     * @param string $programSaison is the slugger
-     * @Route("wild/category/{programSaison}", name="show_program")
-     * @return Response
-     */
-    public function showByProgram(string $programSaison): Response
 }
 
 

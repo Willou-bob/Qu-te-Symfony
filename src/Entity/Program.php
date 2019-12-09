@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,9 +40,14 @@ class Program
     private $poster;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\season", mappedBy="programs")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $season;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
-
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +97,18 @@ class Program
     public function setPoster(string $poster): self
     {
         $this->poster = $poster;
+
+        return $this;
+    }
+
+    public function getSeason(): ?season
+    {
+        return $this->season;
+    }
+
+    public function setSeason(?season $season): self
+    {
+        $this->season = $season;
 
         return $this;
     }
