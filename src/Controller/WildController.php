@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Program;
+use App\Entity\Season;
+use App\Entity\Episode;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -35,11 +37,10 @@ class WildController extends AbstractController
      * Getting a program with a formatted slug for title
      *
      * @param string $slug The slugger
-     * @Route("/show/{slug<^[a-z0-9-]+$>}", defaults={"slug" = null}, name="show")
+     * @Route("/show/{slug<^[a-z0-9-]+$>}", defaults={"slug" = null}, name="show_program")
      * @return Response
      */
-
-    public function show(?string $slug) :Response
+    public function showByProgram(?string $slug) :Response
     {
         if (!$slug) {
             throw $this
@@ -96,6 +97,33 @@ class WildController extends AbstractController
         return $this->render('wild/category.html.twig', [
             'programs' => $programs,
             'category'  => $category
+        ]);
+    }
+
+    /**
+     * @param string $id
+     * @Route("show/season/{id}", name="show_season")
+     * @return Response
+     */
+    public function showBySeason(int $id) :Response
+    {
+        if (!$id) {
+            throw $this
+                ->createNotFoundException('No id in season table.');
+        }
+
+        $season = $this->getDoctrine()
+            ->getRepository(Season::class)
+            ->find($id);
+
+        if (!$season) {
+            throw $this
+                ->createNotFoundException('No season in season table.');
+        }
+
+        return $this->render('Wild/showSeason.html.twig', [
+            'season' => $season,
+            'id'=> $id,
         ]);
     }
 }

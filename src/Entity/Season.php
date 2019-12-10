@@ -34,7 +34,7 @@ class Season
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\program", inversedBy="season)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Program", inversedBy="seasons")
      * @ORM\JoinColumn(nullable=false)
      */
     private $program;
@@ -47,7 +47,6 @@ class Season
     public function __construct()
     {
         $this->episodes = new ArrayCollection();
-        $this->programs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -91,7 +90,7 @@ class Season
         return $this;
     }
 
-    public function getProgram(): ?program
+    public function getProgram(): ArrayCollection
     {
         return $this->program;
     }
@@ -128,37 +127,6 @@ class Season
             // set the owning side to null (unless already changed)
             if ($episode->getSeason() === $this) {
                 $episode->setSeason(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Program[]
-     */
-    public function getPrograms(): Collection
-    {
-        return $this->programs;
-    }
-
-    public function addProgram(Program $program): self
-    {
-        if (!$this->programs->contains($program)) {
-            $this->programs[] = $program;
-            $program->setSeason($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProgram(Program $program): self
-    {
-        if ($this->programs->contains($program)) {
-            $this->programs->removeElement($program);
-            // set the owning side to null (unless already changed)
-            if ($program->getSeason() === $this) {
-                $program->setSeason(null);
             }
         }
 

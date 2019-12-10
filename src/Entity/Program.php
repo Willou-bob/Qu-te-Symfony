@@ -40,10 +40,15 @@ class Program
     private $poster;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\season", mappedBy="programs")
+     * @ORM\OneToMany(targetEntity="App\Entity\Season", mappedBy="program")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $season;
+    private $seasons;
+
+    public function __construct()
+    {
+        $this->seasons = new ArrayCollection();
+    }
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -101,15 +106,35 @@ class Program
         return $this;
     }
 
-    public function getSeason(): ?season
+    /**
+     * @return Collection|Season[]
+     */
+    public function getSeasons(): Collection
     {
-        return $this->season;
+        return $this->seasons;
     }
 
-    public function setSeason(?season $season): self
+    public function addSeason(Season $season): self
     {
-        $this->season = $season;
+        if (!$this->seasons->contains($season)) {
+            $this->seasons[] = $season;
+            $season->setProgram($this);
+        }
 
         return $this;
     }
+
+    public function removeSeason(Season $season): self
+    {
+        if ($this->seasons->contains($season)) {
+            $this->seasons->removeElement($season);
+            // set the owning side to null (unless already changed)
+            if ($season->getProgram() === $this) {
+                $season->setProgram(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
