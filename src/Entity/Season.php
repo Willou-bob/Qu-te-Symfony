@@ -90,7 +90,7 @@ class Season
         return $this;
     }
 
-    public function getProgram(): ArrayCollection
+    public function getProgram(): ?Program
     {
         return $this->program;
     }
